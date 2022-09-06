@@ -1,56 +1,26 @@
 package main
 
-var wallets = map[int]float32{
-	0: 0,
-}
-
-func addWallet(clientID int, sum float32) bool {
-	if _, ok := wallets[clientID]; ok {
-		return false
-	}
-	wallets[clientID] = sum
-	return true
-}
-
-func addAmount(clientID int, sum float32) bool {
-	if _, ok := wallets[clientID]; !ok || sum < 0 {
-		return false
-	}
-	wallets[clientID] += sum
-	return true
-}
-
-func subtractAmount(clientID int, subtract float32) bool {
-	if _, ok := wallets[clientID]; !ok || subtract < 0 {
-		return false
-	}
-	wallets[clientID] -= subtract
-	return true
-}
-
-func showBalance(clientID int) float32 {
-	if _, ok := wallets[clientID]; !ok {
-		return -1
-	}
-	return wallets[clientID]
-}
+import (
+	"avito-tech/internal/pkg/wallets"
+	"fmt"
+)
 
 func main() {
-	println()
-	println(addWallet(123, 123))
-	println(addWallet(123, 123))
-	println(showBalance(123))
-	println(showBalance(50))
-	println(subtractAmount(123, 22.01))
-	println(subtractAmount(123, 0.99))
-	println(subtractAmount(123, 100))
-	println(subtractAmount(123, -100))
-	println(subtractAmount(404, 100))
-	println(subtractAmount(404, -100))
-	println(showBalance(123))
-	println(addAmount(123, 200.99))
-	println(addAmount(123, -200))
-	println(addAmount(404, 200))
-	println(addAmount(404, -200))
-	println(showBalance(123))
+	balances := wallets.NewWallets()
+	fmt.Println(balances.AddWallet(0, 0))
+	fmt.Println(balances.AddWallet(123, 123))
+	fmt.Println(balances.ShowBalance(123))
+	fmt.Println(balances.ShowBalance(50))
+	fmt.Println(balances.SubtractAmount(123, 22.01))
+	fmt.Println(balances.SubtractAmount(123, 0.99))
+	fmt.Println(balances.SubtractAmount(123, 100))
+	fmt.Println(balances.SubtractAmount(123, -100))
+	fmt.Println(balances.SubtractAmount(404, 100))
+	fmt.Println(balances.SubtractAmount(404, -100))
+	fmt.Println(balances.ShowBalance(123))
+	fmt.Println(balances.AddAmount(123, 200.99))
+	fmt.Println(balances.AddAmount(123, -200))
+	fmt.Println(balances.AddAmount(404, 200))
+	fmt.Println(balances.AddAmount(404, -200))
+	fmt.Println(balances.ShowBalance(123))
 }
